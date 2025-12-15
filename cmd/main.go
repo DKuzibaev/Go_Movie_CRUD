@@ -1,7 +1,12 @@
 package main
 
-import "log"
+import (
+	"go_crud/internal/repository/inmemory"
+	"go_crud/internal/server"
+)
 
 func main() {
-	log.Println("Hello")
+	store := inmemory.NewMovieStore()
+	s := server.NewServer(store)
+	s.Start()
 }
