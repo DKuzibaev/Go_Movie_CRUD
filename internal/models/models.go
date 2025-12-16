@@ -1,16 +1,23 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Movie struct {
-	ID        string    `json:"id"`
-	Isbn      string    `json:"isbn"`
-	Title     string    `json:"title"`
-	Director  *Director `json:"director"`
-	CreatedAt time.Time `json:"created_at"`
+	gorm.Model
+	ID         string    `gorm:"primaryKey" json:"id"`
+	Isbn       string    `json:"isbn"`
+	Title      string    `json:"title"`
+	DirectorID uint      `json:"director_id"` // внешняя колонка
+	Director   *Director `json:"director" gorm:"foreignKey:DirectorID"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type Director struct {
+	gorm.Model
 	FirstName string `json:"firstname"`
 	LastName  string `json:"lastname"`
 }

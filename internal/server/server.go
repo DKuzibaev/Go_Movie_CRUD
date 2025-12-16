@@ -2,7 +2,7 @@ package server
 
 import (
 	"go_crud/internal/handlers"
-	"go_crud/internal/repository/inmemory"
+	"go_crud/internal/repository/indatabase"
 	"log"
 	"net/http"
 
@@ -10,11 +10,11 @@ import (
 )
 
 type Server struct {
-	store  *inmemory.MovieStore
+	store  indatabase.MovieStorage
 	router *mux.Router
 }
 
-func NewServer(store *inmemory.MovieStore) *Server {
+func NewServer(store indatabase.MovieStorage) *Server {
 	s := &Server{
 		store:  store,
 		router: mux.NewRouter(),
